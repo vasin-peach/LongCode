@@ -6,12 +6,18 @@ import sys
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/', methods=['POST'])
 def App():
-    data = request.data
-    # data.save('') # save file.py
-    # com = Code('add')
-    # com.run()
+    data = request.get_json(silent=True)
+    computed = Code(data)
+    respone = computed.run()
+    print(respone)
+    #-----------------------#
+    # free memmory
+    computed = None
+    del(computed)
+    #-----------------------#
+    return respone
 
 
 if __name__ == "__main__":
