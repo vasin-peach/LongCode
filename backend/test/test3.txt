@@ -1,0 +1,2 @@
+def add(n, s):
+    return 5*n*s if n < 10 else 4*n*s if n < 20 else 3*n*s

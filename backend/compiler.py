@@ -1,6 +1,6 @@
 import multiprocessing as thread
 
-path = 'test.txt'
+path = 'test3.txt'
 
 class Code:
     
@@ -9,7 +9,7 @@ class Code:
         # exec function use only in class
         v = {}
         self.data = data
-        exec(open(path).read(), None, v)
+        exec(open('test'+'/'+self.data['name']).read(), None, v)
         # print(v)
         for name, value in v.items():
             setattr(self, name, value)
@@ -34,19 +34,17 @@ class Code:
         # print('input: ', INPUT)
         # print('output: ', OUTPUT)
         return INPUT, OUTPUT
-        # print(testcase)
     
     def run_helper(self, INPUT, EXPECTED, case, ans):
         func = 'self.' + self.name
         # print(INPUT)
-        # print(INPUT)
-        print(EXPECTED)
-        b = '(' + ', '.join(str(val) for key, val in INPUT.items()) + ')'
+        # print(EXPECTED)
+        b = '(' + ', '.join(str(*val) for key, val in INPUT.items()) + ')'
         # print(func+b)
         try:
             OUT = eval(func+b)
-            print(OUT, EXPECTED)
-            if OUT == EXPECTED:
+            print(OUT, '|', EXPECTED)
+            if str(OUT) == str(EXPECTED):
                 print('case%d: Passed' % (case+1))
                 # self.update_result(1) # 1 for pass
                 ans.put(1)
@@ -76,7 +74,9 @@ class Code:
         job = []
         for case in range(len(self.input)):
             # sent[case] = False
-            T = thread.Process(target = self.run_helper, args = (self.input[case], *self.expected[case], case, ans))
+            # print(*self.input[case])
+            # print(self.expected[case])
+            T = thread.Process(target = self.run_helper, args = (*self.input[case], self.expected[case], case, ans))
             job.append(T)
             T.start()
             T.join(self.timeLimit)
