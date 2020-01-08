@@ -431,7 +431,7 @@ export default {
       // console.log(JSON.stringify(crossData))
 
       // Request data from python server
-      var path = keys.env.BACKEND_URI;
+      var path = process.env.BACKEND_URI ? process.env.BACKEND_URI : 'http://localhost:5000';
       // Load loading animate
       this.loading(true);
 
