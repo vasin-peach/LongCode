@@ -1,3 +1,5 @@
+"LongCode" Website for practice Python language It consists of exercises that the teacher can add by himself. i'm working on client-side using Vue.js and my friend working on backend by useing Flask
+
 # longcode
 
 > ITF final project.
